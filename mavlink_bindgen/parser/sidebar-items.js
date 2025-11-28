@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["MavType","MavXmlElement"],"fn":["extra_crc","generate","parse_profile"],"struct":["MavDeprecation","MavEnum","MavEnumEntry","MavField","MavMessage","MavProfile"]};

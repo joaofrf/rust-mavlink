@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MINOR_MAVLINK_VERSION"],"enum":["MavMessage"],"struct":["TEST_TYPES_DATA"]};
