@@ -72,7 +72,7 @@ impl Display for ConnectionAddress {
             #[cfg(feature = "tcp")]
             Self::Tcp(connectable) => write!(f, "{connectable}"),
             #[cfg(feature = "udp")]
-            Self::Udp(connectable) => write!(f, "{connectable:?}"),
+            Self::Udp(connectable) => write!(f, "{connectable}"),
             #[cfg(feature = "direct-serial")]
             Self::Serial(connectable) => write!(f, "{connectable}"),
             Self::File(connectable) => write!(f, "{connectable}"),
@@ -129,7 +129,7 @@ impl ConnectionAddress {
             #[cfg(all(feature = "udp"))]
             "udpin" | "udpout" | "udpcast" => Self::Udp(UdpConfig::new(
                 match protocol {
-                    "udpout" => address,
+                    "udpin" => address,
                     _ => "0.0.0.0:0",
                 },
                 match protocol {
@@ -138,10 +138,7 @@ impl ConnectionAddress {
                     "udpcast" => UdpMode::Udpcast,
                     _ => unreachable!(),
                 },
-                match protocol {
-                    "udpin" | "udpcast" => Some(address.to_string()),
-                    _ => None,
-                },
+                address.to_string(),
             )),
             "file" => Self::File(FileConfig::new(PathBuf::from(address))),
             _ => {

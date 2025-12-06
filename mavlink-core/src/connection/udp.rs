@@ -217,14 +217,12 @@ impl Connectable for UdpConfig<UdpSocket> {
     fn connect<M: Message>(&self) -> io::Result<Box<dyn MavConnection<M> + Sync + Send>> {
         let (socket, server, dest): (Arc<UdpSocket>, _, _) = match self.mode {
             UdpMode::Udpin => (self.address.clone(), true, None),
-            _ => {
-                let target = self.target.as_ref().expect("There is no target defined");
-                (self.address.clone(), false, Some(get_socket_addr(target)?))
-            }
+            _ => (
+                self.address.clone(),
+                false,
+                Some(get_socket_addr(&self.target)?),
+            ),
         };
-        if matches!(self.mode, UdpMode::Udpcast) {
-            socket.set_broadcast(true)?;
-        }
         Ok(Box::new(UdpConnection::new(socket, server, dest)?))
     }
 }

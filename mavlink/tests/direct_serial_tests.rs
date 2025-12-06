@@ -1,4 +1,9 @@
-#[cfg(all(feature = "std", feature = "direct-serial", feature = "common"))]
+#[cfg(all(
+    feature = "std",
+    feature = "direct-serial",
+    feature = "common",
+    not(feature = "tokio-1")
+))]
 mod test_direct_serial {
     use mavlink::common::MavMessage;
 

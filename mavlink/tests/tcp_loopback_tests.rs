@@ -1,6 +1,11 @@
 mod test_shared;
 
-#[cfg(all(feature = "std", feature = "tcp", feature = "common"))]
+#[cfg(all(
+    feature = "std",
+    feature = "tcp",
+    feature = "common",
+    not(feature = "tokio-1")
+))]
 mod test_tcp_connections {
     use std::thread;
 

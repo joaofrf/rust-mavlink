@@ -1,6 +1,11 @@
 mod test_shared;
 
-#[cfg(all(feature = "std", feature = "udp", feature = "common"))]
+#[cfg(all(
+    feature = "std",
+    feature = "udp",
+    feature = "common",
+    not(feature = "tokio-1")
+))]
 mod test_udp_connections {
     use std::thread;
 

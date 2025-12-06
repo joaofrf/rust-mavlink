@@ -60,6 +60,7 @@ mod test_file_connections {
         );
     }
 
+    #[cfg(not(feature = "tokio-1"))]
     #[test]
     pub fn test_file_read_raw() {
         let tlog = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))

@@ -241,7 +241,7 @@ impl AsyncConnectable for UdpConfig<UdpSocket> {
         let (socket, server, dest): (Arc<UdpSocket>, _, _) = match self.mode {
             UdpMode::Udpin => (self.address.clone(), true, None),
             _ => {
-                let target = self.target.as_ref().expect("There is no target defined");
+                let target = self.target.clone();
                 (self.address.clone(), false, Some(get_socket_addr(target)?))
             }
         };

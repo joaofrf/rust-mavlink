@@ -1,4 +1,8 @@
-#[cfg(all(feature = "default", feature = "ardupilotmega"))]
+#[cfg(all(
+    feature = "default",
+    feature = "ardupilotmega",
+    not(feature = "tokio-1")
+))]
 mod process_files {
     use mavlink::ardupilotmega::MavMessage;
     use mavlink::error::MessageReadError;

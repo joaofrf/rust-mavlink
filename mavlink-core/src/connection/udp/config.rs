@@ -33,14 +33,14 @@ pub enum UdpMode {
 pub struct UdpConfig<T> {
     pub address: Arc<T>,
     pub(crate) mode: UdpMode,
-    pub(crate) target: Option<String>,
+    pub(crate) target: String,
 }
 
 impl UdpConfig<UdpSocket> {
     /// Creates a UDP connection address.
     ///
     /// The type of connection depends on the [`UdpMode`]
-    pub fn new(address: &str, mode: UdpMode, target: Option<String>) -> Self {
+    pub fn new(address: &str, mode: UdpMode, target: String) -> Self {
         let address = std::net::UdpSocket::bind(address).expect("Unable to bind UDP socket");
 
         #[cfg(all(feature = "udp", feature = "tokio-1"))]
@@ -61,10 +61,6 @@ impl Display for UdpConfig<UdpSocket> {
             UdpMode::Udpout => "udpout",
             UdpMode::Udpcast => "udpcast",
         };
-        let address = match self.address.local_addr() {
-            Ok(addr) => addr.to_string(),
-            Err(_) => "<invalid address>".to_string(),
-        };
-        write!(f, "{mode}:{address}")
+        write!(f, "{mode}:{}", self.target)
     }
 }
