@@ -126,7 +126,7 @@ impl<M: Message> MavConnection<M> for FileConnection {
     fn allow_recv_any_version(&self) -> bool {
         self.recv_any_version
     }
-    
+
     #[cfg(feature = "signing")]
     fn setup_signing(&mut self, signing_data: Option<SigningConfig>) {
         self.signing_data = signing_data.map(SigningData::from_config);

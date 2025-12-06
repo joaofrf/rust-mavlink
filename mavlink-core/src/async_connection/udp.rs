@@ -243,7 +243,7 @@ impl AsyncConnectable for UdpConfig<UdpSocket> {
             _ => {
                 let target = self.target.as_ref().expect("There is no target defined");
                 (self.address.clone(), false, Some(get_socket_addr(target)?))
-            },
+            }
         };
         if matches!(self.mode, UdpMode::Udpcast) {
             socket.set_broadcast(true)?;
