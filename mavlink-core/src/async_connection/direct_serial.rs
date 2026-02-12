@@ -64,6 +64,10 @@ impl<M: Message + Sync + Send> AsyncMavConnection<M> for AsyncSerialConnection {
         result
     }
 
+    async fn last_peer_addr(&self) -> Option<std::net::SocketAddr> {
+        None
+    }
+
     async fn send(
         &self,
         header: &MavHeader,

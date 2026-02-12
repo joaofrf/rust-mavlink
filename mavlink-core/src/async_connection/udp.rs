@@ -166,6 +166,11 @@ impl<M: Message + Sync + Send> AsyncMavConnection<M> for AsyncUdpConnection {
         }
     }
 
+    async fn last_peer_addr(&self) -> Option<std::net::SocketAddr> {
+        let mut reader = self.reader.lock().await;
+        reader.reader_ref().last_recv_address
+    }
+
     async fn send(
         &self,
         header: &MavHeader,

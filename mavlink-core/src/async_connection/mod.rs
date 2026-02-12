@@ -26,6 +26,9 @@ pub trait AsyncMavConnection<M: Message + Sync + Send> {
     /// Yield until a valid frame is received, ignoring invalid messages.
     async fn recv(&self) -> Result<(MavHeader, M), crate::error::MessageReadError>;
 
+    /// Get the socket address of the last received message's sender, if available.
+    async fn last_peer_addr(&self) -> Option<std::net::SocketAddr>;
+
     /// Receive a raw, unparsed mavlink message.
     ///
     /// Yield until a valid frame is received, ignoring invalid messages.
@@ -120,7 +123,7 @@ pub async fn connect_async<M: Message + Sync + Send>(
 
 /// Returns the socket address for the given address.
 #[cfg(any(feature = "tcp", feature = "udp"))]
-pub(crate) fn get_socket_addr<T: std::net::ToSocketAddrs>(
+pub fn get_socket_addr<T: std::net::ToSocketAddrs>(
     address: T,
 ) -> Result<std::net::SocketAddr, io::Error> {
     let addr = match address.to_socket_addrs()?.next() {

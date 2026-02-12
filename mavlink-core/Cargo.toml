@@ -37,7 +37,7 @@ tokio = { version = "1.0", default-features = false, features = ["io-util", "net
 tokio-serial = { version = "5.4.4", default-features = false, optional = true }
 
 [features]
-default = ["std", "tcp", "udp", "direct-serial", "serde"]
+default = ["std", "tcp", "udp", "direct-serial", "serde", "tokio-1"]
 
 std = ["byteorder/std"]
 udp = []

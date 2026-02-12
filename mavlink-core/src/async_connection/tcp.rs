@@ -120,6 +120,12 @@ impl<M: Message + Sync + Send> AsyncMavConnection<M> for AsyncTcpConnection {
         result
     }
 
+    async fn last_peer_addr(&self) -> Option<std::net::SocketAddr> {
+        // For TCP connections, the peer address is fixed and can be obtained from the socket
+        let guard = self.writer.lock().await;
+        guard.socket.peer_addr().ok()
+    }
+
     async fn send(
         &self,
         header: &MavHeader,

@@ -126,6 +126,10 @@ impl<M: Message + Sync + Send> AsyncMavConnection<M> for AsyncFileConnection {
         ))
     }
 
+    async fn last_peer_addr(&self) -> Option<std::net::SocketAddr> {
+        None
+    }
+
     #[cfg(feature = "signing")]
     fn setup_signing(&mut self, signing_data: Option<SigningConfig>) {
         self.signing_data = signing_data.map(SigningData::from_config);
